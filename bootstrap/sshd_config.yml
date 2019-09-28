@@ -1,0 +1,22 @@
+---
+- name: Enable SSH Password Connection for Test 
+  hosts: localhost
+  vars:
+    ansible_become: yes
+  tasks:
+    - name: Modify PasswordAuthentication in sshd_config
+      replace:
+        dest: /etc/ssh/sshd_config
+        regexp: 'PasswordAuthentication no'
+        replace: 'PasswordAuthentication yes'
+
+    - name: Modify PermitRootLogin in sshd_config
+      replace:
+        dest: /etc/ssh/sshd_config
+        regexp: '#PermitRootLogin yes'
+        replace: 'PermitRootLogin yes'
+    
+    - name: Restart sshd
+      systemd:
+        name: sshd
+        state: restarted
