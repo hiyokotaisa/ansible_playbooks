@@ -4,9 +4,9 @@
     ansible_become: yes
     ansible_become_method: sudo
     ansible_become_password: vagrant
-    DBName: zabbix
-    DBUser: zabbix
-    DBPassword: password
+    DB_Name: zabbix
+    DB_User: zabbix
+    DB_Password: password
 
   tasks:
 
@@ -43,25 +43,25 @@
 
     - name: Create Database
       mysql_db:
-        name: "{{ DBName }}"
+        name: "{{ DB_Name }}"
         state: present
         encoding: utf8
         collation: utf8_bin
 
-    - name: Create DBUser with GRANT Option
+    - name: Create DB_User with GRANT Option
       mysql_user:
-        name: "{{ DBUser }}"
+        name: "{{ DB_User }}"
         state: present
-        password: "{{ DBPassword }}"
+        password: "{{ DB_Password }}"
         priv: 'zabbix.*:ALL,GRANT'
 
     - name: Check DB Tables before Import Zabbix Schema File
-      shell: 'mysql -u {{ DBUser }} -p {{ DBPassword }} {{ DBName }} -e "show tables;" | wc -l'
+      shell: 'mysql -u {{ DB_User }} -p {{ DB_Password }} {{ DB_Name }} -e "show tables;" | wc -l'
       register: DBTable
 
     - name: Configure Zabbix DB
-      shell: zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz | mysql {{ DBName }} -u root
-      when: DBTable.stdout|int == 0
+      shell: zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz | mysql {{ DB_Name }} -u root
+      when: DBTable|int == 0
 
     - name: Configure zabbix_server.conf
       template:
