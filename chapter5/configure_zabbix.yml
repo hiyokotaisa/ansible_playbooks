@@ -55,14 +55,13 @@
         password: "{{ DBPassword }}"
         priv: 'zabbix.*:ALL,GRANT'
 
-    - name: Check Users before Import Zabbix Schema File
-      shell: mysql -u root -ss zabbix -e "select count(*) from users;"
-      register: check_users
-      ignore_errors: yes
-
+    - name: Check Table Count before Import Zabbix Schema File
+      shell: mysql -u root -ss {{ DBName }} -e "show tables;" | wc -l
+      register: check_tables
+    - debug: msg="{{ check_tables }}"
     - name: Configure Zabbix DB
       shell: zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz | mysql {{ DBName }} -u root
-      when: check_users != 0
+      when: check_tables.stdout == "0"
 
     - name: Configure zabbix_server.conf
       template:
@@ -76,8 +75,14 @@
         src: templates/httpd_zabbix.conf.j2
         dest: /etc/httpd/conf.d/zabbix.conf
 
-    - name: Set localedef for Japanese Language setting on Zabbix
-      shell: localedef -f UTF-8 -i ja_JP ja_JP
+    - name: Check Current localse Setting
+      shell: localectl status
+      changed_when: false
+      register: locale_result
+
+    - name: Set locale for Japanese Language setting on Zabbix
+      shell: localectl set-locale LANG=ja_JP.utf8
+      when: "'LANG=ja_JP.utf8' not in locale_result.stdout"
 
     - name: Restart Zabbix Related Services
       systemd:
