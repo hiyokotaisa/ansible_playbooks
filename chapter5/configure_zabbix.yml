@@ -1,3 +1,4 @@
+---
 - name: Configure Zabbix Server
   hosts: zabbix
   vars:
