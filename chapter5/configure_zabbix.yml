@@ -55,13 +55,14 @@
         password: "{{ DBPassword }}"
         priv: 'zabbix.*:ALL,GRANT'
 
-    - name: Check DB Tables before Import Zabbix Schema File
-      shell: 'mysql -u {{ DBUser }} -p {{ DBPassword }} {{ DBName }} -e "show tables;" | wc -l'
-      register: DBTable
+    - name: Check Users before Import Zabbix Schema File
+      shell: mysql -u root -ss zabbix -e "select count(*) from users;"
+      register: check_users
+      ignore_errors: yes
 
     - name: Configure Zabbix DB
       shell: zcat /usr/share/doc/zabbix-server-mysql*/create.sql.gz | mysql {{ DBName }} -u root
-      when: DBTable|int == 0
+      when: check_users != 0
 
     - name: Configure zabbix_server.conf
       template:
