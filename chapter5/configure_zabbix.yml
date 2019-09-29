@@ -76,7 +76,7 @@
         src: templates/httpd_zabbix.conf.j2
         dest: /etc/httpd/conf.d/zabbix.conf
 
-    - name: Check Current localse Setting
+    - name: Check Current locale Setting
       shell: localectl status
       changed_when: false
       register: locale_result
