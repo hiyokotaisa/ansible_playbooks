@@ -4,8 +4,16 @@
 各プレイブックの詳しい説明については、書籍を参照してください。
 
 ## 使用方法
-- bootstrap: Vagrantで作成する仮想マシンのSSH設定を変更し、手軽に接続するためのプレイブックです。
-- chapterX: 各章で提示したプレイブックおよび検証に使用するVagrantfileを公開しています。
+以下のコマンドを実行し、ファイルをクローンしてください。
+```
+$ git clone https://github.com/hiyokotaisa/ansible_playbooks.git
+```
+Vagrantで生成する各VM上には、このリポジトリが自動的にクローンされます。
+
+## コンテンツ
+- [README.md](https://github.com/hiyokotaisa/ansible_playbooks/blob/master/README.md): このドキュメント
+- [bootstrap](https://github.com/hiyokotaisa/ansible_playbooks/tree/master/bootstrap): Vagrantで作成する仮想マシンのSSH設定を変更するプレイブック
+- chapterX: 各章で提示したプレイブックおよび検証に使用するVagrantfile
   - vagrant: Vagrantfile
   - playbooks: プレイブックおよびロール
 
