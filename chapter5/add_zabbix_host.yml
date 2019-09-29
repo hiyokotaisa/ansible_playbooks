@@ -1,0 +1,37 @@
+- name: Add Zabbix Host
+  hosts: localhost
+  connection: local
+  vars:
+    ansible_become: yes
+    ansible_become_method: sudo
+    ansible_become_password: vagrant
+  tasks:
+
+    - name: Install Required Package
+      yum:
+        name: python2-pip
+        state: present
+
+    - name: install zabbix-api
+      pip:
+        name: zabbix-api
+        state: present
+
+    - name: Add Zabbix Host Entry
+      local_action:
+        module: zabbix_host
+        server_url: http://localhost/zabbix/
+        login_user: Admin
+        login_password: zabbix
+        host_name: 192.168.100.20
+        visible_name: web01
+        description: Added from Ansible
+        host_groups:
+          - Linux servers
+        interfaces:
+          - type: 1
+            main: 1
+            useip: 1
+            ip: 192.168.100.20
+            port: 10050
+            state: present
