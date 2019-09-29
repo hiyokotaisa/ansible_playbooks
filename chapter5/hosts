@@ -1,0 +1,5 @@
+[web]
+192.168.100.20 ansible_user=vagrant ansible_ssh_password=vagrant
+
+[zabbix]
+192.168.100.21 ansible_user=vagrant ansible_ssh_password=vagrant
