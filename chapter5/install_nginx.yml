@@ -17,7 +17,7 @@ yum:
 
 name: Copy contents
 copy:
-  src: /home/vagrant/contents
+  src: ./contents
   dest: /usr/share/nginx/html
   owner: vagrant
 
