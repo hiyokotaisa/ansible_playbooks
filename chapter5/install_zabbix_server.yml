@@ -76,14 +76,8 @@
         src: templates/httpd_zabbix.conf.j2
         dest: /etc/httpd/conf.d/zabbix.conf
 
-    - name: Check Current locale Setting
-      shell: localectl status
-      changed_when: false
-      register: locale_result
-
     - name: Set locale for Japanese Language setting on Zabbix
-      shell: localectl set-locale LANG=ja_JP.utf8
-      when: "'LANG=ja_JP.utf8' not in locale_result.stdout"
+      shell: localedef -f UTF-8 -i ja_JP ja_JP
 
     - name: Restart Zabbix Related Services
       systemd:
