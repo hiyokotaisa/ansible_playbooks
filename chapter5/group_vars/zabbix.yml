@@ -16,3 +16,7 @@ zabbix_services:
   - zabbix-agent
   - httpd
 
+zabbix_login_user: "Admin"
+zabbix_login_password: "zabbix"
+zabbix_server_url: "http://192.168.100.21/zabbix/"
+
