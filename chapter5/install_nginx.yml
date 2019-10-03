@@ -10,18 +10,18 @@
       hostname:
         name: web01
 
-name: Install Nginx
-yum:
-  name: nginx
-  state: latest
+    - name: Install Nginx
+      yum:
+        name: nginx
+        state: latest
 
-name: Copy contents
-copy:
-  src: ./contents
-  dest: /usr/share/nginx/html
-  owner: vagrant
+    - name: Copy contents
+      copy:
+        src: ./contents
+        dest: /usr/share/nginx/html
+        owner: vagrant
 
-name: Start Nginx
-systemd:
-  state: started
-  name: nginx
+    - name: Start Nginx
+      systemd:
+        state: started
+        name: nginx
