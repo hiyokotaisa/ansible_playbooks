@@ -6,6 +6,8 @@
     ansible_become_method: sudo
     ansible_become_password: vagrant
   tasks:
+    - name: Include Zabbix Vars File
+      include_vars: "./group_vars/zabbix.yml"
 
     - name: Install Required Package
       yum:
@@ -21,12 +23,14 @@
       zabbix_host:
         server_url: "{{ zabbix_server_url }}"
         login_user: "{{ zabbix_login_user }}"
-        login_password: "{{{ zabbix_login_password }}}"
+        login_password: "{{ zabbix_login_password }}"
         host_name: 192.168.100.20
         visible_name: web01
         description: Added from Ansible
         host_groups:
           - Linux servers
+        link_templates: 
+          - Template App HTTP Service
         interfaces:
           - type: 1
             main: 1
