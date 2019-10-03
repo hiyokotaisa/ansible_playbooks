@@ -19,7 +19,7 @@
 
     - name: Install Zabbix Packages
       yum:
-        name: "{{ zabbix_pre_packages }}"
+        name: "{{ zabbix_packages }}"
 
     - name: Install MariaDB
       yum:
