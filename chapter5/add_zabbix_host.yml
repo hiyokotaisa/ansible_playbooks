@@ -5,6 +5,7 @@
     ansible_become: yes
     ansible_become_method: sudo
     ansible_become_password: vagrant
+    zabbix_server_url: "http://192.168.100.21/zabbix/"
   tasks:
 
     - name: Install Required Package
@@ -20,7 +21,7 @@
     - name: Add Zabbix Host Entry
       local_action:
         module: zabbix_host
-        server_url: http://localhost/zabbix/
+        server_url: "{{ zabbix_server_url }}"
         login_user: Admin
         login_password: zabbix
         host_name: 192.168.100.20
@@ -33,5 +34,5 @@
             main: 1
             useip: 1
             ip: 192.168.100.20
-            port: 10050
+            port: 80
             state: present
