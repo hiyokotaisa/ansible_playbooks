@@ -1,0 +1,16 @@
+---
+- hosts: all
+  vars:
+  tasks:
+    - name: Configure eth2
+#      vyos_interface:
+#        name: eth2
+#        description: added from Ansible
+#        enabled: yes
+    
+    - name: Set IP address for eth2
+      vyos_l3_interface:
+        name: eth2
+        ipv4: 192.168.110.1/24
+
+
