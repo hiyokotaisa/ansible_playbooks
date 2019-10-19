@@ -21,6 +21,7 @@ Vagrant.configure("2") do |config|
     end
     ansible.vm.provision "shell", privileged: false, inline: <<-SHELL
       ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
+      sshpass -p "vagrant" ssh-copy-id -i ~/.ssh/id_rsa.pub -o "StrictHostKeyChecking no" 192.168.100.20
       sudo yum install epel-release -y
       sudo yum install ansible git -y
       git clone https://github.com/hiyokotaisa/ansible_playbooks.git
