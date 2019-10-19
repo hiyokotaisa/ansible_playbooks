@@ -1,5 +1,5 @@
 [vyos]
-192.168.100.10 ansible_user=vagrant ansible
+192.168.100.20 ansible_user=vagrant ansible_password=vagrant
 
 [vyos:vars]
 ansible_connection=network_cli
