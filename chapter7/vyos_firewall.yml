@@ -1,0 +1,11 @@
+---
+- hosts: all
+  tasks:
+    - name: Create firewall rules
+      vyos_config:
+        line:
+          - set firewall name OUTSIDE-LOCAL default-action accept
+          - set firewall name OUTSIDE-LOCAL rule 10 protocol icmp
+          - set firewall name OUTSIDE-LOCAL rule 10 action drop
+          - set interfaces ethernet eth1 firewall local name OUTSIDE-LOCAL
+        backup: yes
