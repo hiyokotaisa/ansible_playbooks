@@ -1,0 +1,10 @@
+---
+- hosts: all
+  vars:
+    ansible_become: yes
+    ansible_become_method: sudo
+  tasks:
+    - name: Install Nginx
+        yum:
+        name: nginx
+        state: latest
