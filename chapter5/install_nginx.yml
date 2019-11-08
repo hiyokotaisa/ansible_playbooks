@@ -17,7 +17,7 @@
 
     - name: Copy contents
       copy:
-        src: ./contents/index.html
+        src: ./contents/
         dest: /usr/share/nginx/html
         owner: vagrant
 
