@@ -3,7 +3,7 @@
   tasks:
     - name: Create firewall rules
       vyos_config:
-        line:
+        lines:
           - set firewall name OUTSIDE-LOCAL default-action accept
           - set firewall name OUTSIDE-LOCAL rule 10 protocol icmp
           - set firewall name OUTSIDE-LOCAL rule 10 action drop
