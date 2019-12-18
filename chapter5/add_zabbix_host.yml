@@ -37,4 +37,4 @@
             useip: 1
             ip: 192.168.100.20
             port: 80
-            state: present
+        state: present
